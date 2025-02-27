@@ -2,11 +2,13 @@ package com.authenticator.validateJWT.Controller;
 
 
 import com.authenticator.validateJWT.Models.JWTRequest;
+import com.authenticator.validateJWT.Service.ValidateJWTService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api")
@@ -19,8 +21,10 @@ public class ValidateJWTController {
             return ResponseEntity.badRequest().body("Token is missing or empty");
         }
 
-        // You can add your JWT validation logic here
-        // For now, let's just return the received token
-        return ResponseEntity.ok("Received token: " + token);
+        ValidateJWTService validateJWTService = new ValidateJWTService();
+
+        Boolean response = validateJWTService.validateTokenService(token);
+
+        return ResponseEntity.ok(response.toString());
     }
 }

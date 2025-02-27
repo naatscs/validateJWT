@@ -20,7 +20,7 @@ public class ValidateJWTControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testValidateToken_ValidToken() throws Exception {
+    public void testValidateToken_inValidToken() throws Exception {
         String requestBody = """
                 {
                   "token": "eyJhbGciOiJIUzI1NiJ9..."
@@ -31,7 +31,7 @@ public class ValidateJWTControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Received token: eyJhbGciOiJIUzI1NiJ9..."));
+                .andExpect(content().string("false"));
     }
 
     @Test

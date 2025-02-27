@@ -11,7 +11,8 @@ public class ValidateJWTService {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
 
-            return jwtContainNameRoleAndSeedClaims(decodedJWT) && clainNameContainsNumbers(decodedJWT) ;
+            return jwtContainNameRoleAndSeedClaims(decodedJWT) && clainNameContainsNumbers(decodedJWT) &&
+                    claimRolesHasValidAttributes(decodedJWT);
 
         }catch (JWTDecodeException e){
             System.err.println("Invalid JWT token: " + e.getMessage());
@@ -38,8 +39,13 @@ public class ValidateJWTService {
 
     }
 
-    public boolean validateJWTClaimRoles(String token){
-        return false;
+    public boolean claimRolesHasValidAttributes(DecodedJWT decodedJWT){
+
+        String role = decodedJWT.getClaim("Role").asString();
+
+        Set<String> validRoles = Set.of("Admin", "Member", "External");
+
+        return validRoles.contains(role);
     }
 
     public boolean claimSeedIsPrime(String token){

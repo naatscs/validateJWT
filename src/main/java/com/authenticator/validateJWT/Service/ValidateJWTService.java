@@ -11,7 +11,7 @@ public class ValidateJWTService {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
 
-            return jwtContainNameRoleAndSeedClaims(decodedJWT);
+            return jwtContainNameRoleAndSeedClaims(decodedJWT) && clainNameContainsNumbers(decodedJWT) ;
 
         }catch (JWTDecodeException e){
             System.err.println("Invalid JWT token: " + e.getMessage());
@@ -28,8 +28,14 @@ public class ValidateJWTService {
 
     }
 
-    public boolean clainNameContainsNumbers(String token){
-        return false;
+    public boolean clainNameContainsNumbers(DecodedJWT decodedJWT){
+        String name = decodedJWT.getClaim("Name").asString();
+            //regex para identificar se possui um numero na string
+        if (name != null && name.matches(".*\\d.*")) {
+            return false;
+        }
+        return true;
+
     }
 
     public boolean validateJWTClaimRoles(String token){

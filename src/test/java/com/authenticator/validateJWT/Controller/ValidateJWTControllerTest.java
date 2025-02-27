@@ -31,7 +31,7 @@ public class ValidateJWTControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
-                .andExpect(content().string("true"));
+                .andExpect(content().string("verdadeiro"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ValidateJWTControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
-                .andExpect(content().string("false"));
+                .andExpect(content().string("falso"));
     }
 
     @Test

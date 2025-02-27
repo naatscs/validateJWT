@@ -38,7 +38,7 @@ public class ValidateJWTControllerTest {
     public void testValidateToken_inValidToken() throws Exception {
         String requestBody = """
                 {
-                  "token": "eyJhbGciOiJIUzI1NiJ9..."
+                  "token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiRXh0ZXJuYWwiLCJTZWVkIjoiODgwMzciLCJOYW1lIjoiTTRyaWEgT2xpdmlhIn0.6YD73XWZYQSSMDf6H0i3-kylz1-TY_Yt6h1cV2Ku-Qs"
                 }
                 """;
 

@@ -146,7 +146,7 @@ public class ValidateJWTServiceTest {
 
     @Test
     void testClaimSeedIsPrime_InvalidSeed() {
-        DecodedJWT decodedJWT = mockDecodedJWTSeedValue("invalid");
+        DecodedJWT decodedJWT = mockDecodedJWTSeedValue("4");
 
         assertFalse(ValidateJWTService.claimSeedIsPrime(decodedJWT)); // Invalid seed, not a number
     }

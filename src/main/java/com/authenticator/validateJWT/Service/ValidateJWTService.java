@@ -14,7 +14,8 @@ public class ValidateJWTService {
 
             return jwtContainNameRoleAndSeedClaims(decodedJWT) && clainNameContainsNumbers(decodedJWT) &&
                     claimRolesHasValidAttributes(decodedJWT) &&
-                    claimSeedIsPrime(decodedJWT);
+                    claimSeedIsPrime(decodedJWT) &&
+                    claimNameMaxRange(decodedJWT);
 
         }catch (JWTDecodeException e){
             System.err.println("Invalid JWT token: " + e.getMessage());
@@ -76,9 +77,11 @@ public class ValidateJWTService {
     }
 
     public boolean claimNameMaxRange(DecodedJWT decodedJWT){
-        return false;
-    }
 
+        String nameValue = decodedJWT.getClaim("Name").asString();
+
+        return nameValue != null && nameValue.length() <= 256;
+    }
 
 
 }

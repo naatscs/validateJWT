@@ -20,6 +20,21 @@ public class ValidateJWTControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    public void testValidateToken_validToken() throws Exception {
+        String requestBody = """
+                {
+                  "token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSIsIk5hbWUiOiJUb25pbmhvIEFyYXVqbyJ9.QY05sIjtrcJnP533kQNk8QXcaleJ1Q01jWY_ZzIZuAg"
+                }
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/validate-token")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    @Test
     public void testValidateToken_inValidToken() throws Exception {
         String requestBody = """
                 {

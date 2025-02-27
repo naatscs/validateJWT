@@ -23,8 +23,18 @@ public class ValidateJWTController {
 
         ValidateJWTService validateJWTService = new ValidateJWTService();
 
-        Boolean response = validateJWTService.validateTokenService(token);
+        Boolean isValid = validateJWTService.validateTokenService(token);
 
-        return ResponseEntity.ok(response.toString());
+        String response = "";
+
+        if(isValid == true){
+            response = "verdadeiro";
+        }else{
+            response = "falso";
+        }
+
+
+
+        return ResponseEntity.ok(response);
     }
 }

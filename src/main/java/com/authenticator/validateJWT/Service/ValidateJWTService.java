@@ -23,7 +23,7 @@ public class ValidateJWTService {
         }
     }
 
-    public boolean jwtContainNameRoleAndSeedClaims(DecodedJWT decodedJWT){
+    public static boolean jwtContainNameRoleAndSeedClaims(DecodedJWT decodedJWT){
         Set<String> claimNames = decodedJWT.getClaims().keySet();
         Set<String> expectedClaims = Set.of("Name", "Role", "Seed");
 
@@ -32,8 +32,10 @@ public class ValidateJWTService {
 
     }
 
-    public boolean clainNameContainsNumbers(DecodedJWT decodedJWT){
+    public static boolean clainNameContainsNumbers(DecodedJWT decodedJWT){
+
         String name = decodedJWT.getClaim("Name").asString();
+
             //regex para identificar se possui um numero na string
         if (name != null && name.matches(".*\\d.*")) {
             return false;
@@ -42,9 +44,13 @@ public class ValidateJWTService {
 
     }
 
-    public boolean claimRolesHasValidAttributes(DecodedJWT decodedJWT){
+    public static boolean claimRolesHasValidAttributes(DecodedJWT decodedJWT){
 
         String role = decodedJWT.getClaim("Role").asString();
+
+        if(role ==null){
+            return false;
+        }
 
         String[] roles = role.split(",");
 
@@ -57,7 +63,7 @@ public class ValidateJWTService {
         return validRoles.contains(role);
     }
 
-    public boolean claimSeedIsPrime(DecodedJWT decodedJWT){
+    public static boolean claimSeedIsPrime(DecodedJWT decodedJWT){
 
         String seedValue = decodedJWT.getClaim("Seed").asString();
 
@@ -76,7 +82,7 @@ public class ValidateJWTService {
         return MathUtils.isPrime(seedIntValue);
     }
 
-    public boolean claimNameMaxRange(DecodedJWT decodedJWT){
+    public static boolean claimNameMaxRange(DecodedJWT decodedJWT){
 
         String nameValue = decodedJWT.getClaim("Name").asString();
 
